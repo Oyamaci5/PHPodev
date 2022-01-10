@@ -1,53 +1,40 @@
 <?php
+$db = new PDO('mysql:host=localhost;dbname=website;charset=utf8', 'root', 'MYas2240.');
 include "top.php";
 include "top.menu.php";
 ?>
 <div class="content-wrapper">
     <div class="content-header">
+        <span style="margin-left:600px; padding:60px; margin-bottom:45px; font-weight:bold; font-size:xx-large;">Haberler</span>
+        <h3 class="underscratch underscratch-green" style="margin-left:560px;"></h3>
+    </div>
+    <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
-                    <!-- The time line -->
-                    <div class="timeline">
-                        <div>
-                            <i class="fas fa-envelope bg-blue"></i>
-                            <div class="timeline-item">
-                                <blockquote class="twitter-tweet">
-                                    <p lang="tr" dir="ltr">27 Ocak TSİ 23.00&#39;teki 2022 Küresel Duyuru için sayılı gün kaldı. 🗓️<br><br>2022 Sinematik Kısa Fragmanı&#39;na tepkinizi aşağıda bir GIF ile tarif edin! <a href="https://t.co/DQiqeZ5ceN">pic.twitter.com/DQiqeZ5ceN</a></p>&mdash; Bethesda TR (@bethesda_TR) <a href="https://twitter.com/bethesda_TR/status/1479471542824230914?ref_src=twsrc%5Etfw">January 7, 2022</a>
-                                </blockquote>
-                                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <?php
+                $data = $db->query("SELECT * FROM haberler");
+                while ($d = $data->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="thumbnail">
+                                <img style="width:100%; height:400px;" src="Resim/Haber/<?= $d['Resim'] ?>">
                             </div>
-                        </div>
-                        <div>
-                            <i class="fas fa-comments bg-maroon"></i>
-
-                            <div class="timeline-item">
-
-                                <div class="timeline-body">
-                                    <a class="twitter-timeline" href="https://twitter.com/TwitterDev" data-tweet-limit="2" data-width="500" data-height="500">
-                                        News by @bet
-                                    </a>
-                                </div>
-                                <div class="timeline-footer">
-
-                                </div>
+                            <div class="card-body">
+                                <h3 class="m-0"><?= $d['Title'] ?></h3>
+                                <h6 class="card-title" style="font-weight:bold;">Yapımcı:<?= $d['Who'] ?></h6><br>
+                                <h6 class="m-0" style="font-weight:700; color:chocolate;"><?= $d['Text'] ?></h6>
                             </div>
-                        </div>
-                        <!-- END timeline item -->
-                        <div>
-                            <i class="fas fa-clock bg-gray"></i>
                         </div>
                     </div>
-                </div>
-                <!-- /.col -->
+                <?php } ?>
+
             </div>
         </div>
-        <!-- /.timeline -->
     </div>
-</div>
 
 
-<?php
-include "bottom.php";
-include "bottom_footer.php";
-?>
+    <?php
+    include "bottom.php";
+    include "bottom_footer.php";
+    ?>
